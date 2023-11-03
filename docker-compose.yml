@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  flask-app:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    environment:
+      - SECRET_KEY=flask_app
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:admin@postgres:5432/flask-test
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: flask-test
